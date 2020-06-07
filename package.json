@@ -1,0 +1,148 @@
+{
+  "name": "what-the-mail",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build-main": "cross-env NODE_ENV=production webpack --config webpack.main.prod.config.js",
+    "build-renderer": "cross-env NODE_ENV=production webpack --config webpack.renderer.prod.config.js",
+    "build": "yarn build-main && yarn build-renderer",
+    "start-renderer-dev": "webpack-dev-server --config webpack.renderer.dev.config.js",
+    "start-main-dev": "webpack --config webpack.main.config.js",
+    "dev": "cross-env START_HOT=1 yarn start-renderer-dev",
+    "prestart": "yarn build",
+    "start": "electron .",
+    "lint": "eslint --ext=jsx,js,tsx,ts src",
+    "test": "jest '(\\/test\\/(?!e2e/)).*'",
+    "pretest:e2e": "yarn build",
+    "test:e2e": "jest '(\\/test\\/e2e/).*'",
+    "pack": "yarn build && electron-builder --dir",
+    "dist": "yarn build && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{src,test,mocks}/**/*.{json,css,scss,md}": [
+      "prettier --config ./.prettierrc --write"
+    ],
+    "{src,test,mocks}/**/*.{js,ts,tsx}": [
+      "prettier --config ./.prettierrc --write",
+      "eslint --ext=jsx,js,ts,tsx --fix src"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/test/.+\\.spec)\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
+      "\\.(s?css|sass)$": "<rootDir>/mocks/styleMock.js"
+    }
+  },
+  "build": {
+    "productName": "WhatMail",
+    "appId": "org.minh.whatMail",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "linux": {
+      "target": "deb"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "repository": "https://github.com/MinhPhu0304/what-the-mail.git",
+  "author": {
+    "name": "Minh Phu Lai",
+    "email": "lminhphu0304@gmail.com"
+  },
+  "license": "SEE LICENSE",
+  "bugs": {
+    "url": "https://github.com/MinhPhu0304/what-the-mail/issues"
+  },
+  "homepage": "https://github.com/MinhPhu0304/what-the-mail",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@hot-loader/react-dom": "^16.8.6",
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.9",
+    "@types/react-test-renderer": "^16.8.1",
+    "@types/webdriverio": "^5.0.0",
+    "@types/webpack-env": "^1.13.3",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.5.3",
+    "electron": "^9.0.2",
+    "electron-builder": "^22.7.0",
+    "electron-devtools-installer": "^3.0.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
+    "file-loader": "^6.0.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.3",
+    "html-webpack-plugin": "^4.2.1",
+    "husky": "^4.2.1",
+    "image-webpack-loader": "^6.0.0",
+    "jest": "^25.5.1",
+    "lint-staged": "^10.0.7",
+    "node-sass": "^4.12.0",
+    "nodemon-webpack-plugin": "^4.3.1",
+    "prettier": "^2.0.5",
+    "react-hot-loader": "^4.8.8",
+    "react-test-renderer": "^16.8.6",
+    "redux-devtools-extension": "^2.13.5",
+    "sass-loader": "^8.0.2",
+    "source-map-loader": "1.0.0",
+    "spectron": "^11.0.0",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^25.4.0",
+    "typescript": "^3.4.5",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "redux": "^4.0.1"
+  }
+}
