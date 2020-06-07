@@ -1,0 +1,6 @@
+.EmailDock__container {
+  min-width: 50px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}

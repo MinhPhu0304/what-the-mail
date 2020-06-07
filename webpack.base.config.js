@@ -14,12 +14,16 @@ module.exports = {
         __filename: false
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.json']
+        extensions: ['.tsx', '.ts', '.js', '.json'],
+        alias: {
+            '@app': path.resolve(__dirname, 'src/')
+        }
+
     },
     devtool: 'source-map',
     plugins: [
-        new copyPlugins([
-            { from: 'src/main/preloads/*.js', to: 'preloads/', flatten: true },
-        ])
+        // new copyPlugins({
+        //     patterns: [{ from: 'src/main/preloads/*.js', to: 'preloads/', flatten: true }],   
+        // })
     ]
 };
